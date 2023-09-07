@@ -13,7 +13,6 @@ String tname = request.getParameter("tname");
     
 <%@ include file="../include/global_head.jsp" %>
 
-
  <body>
 	<center>
 	<div id="wrap">
@@ -26,6 +25,7 @@ String tname = request.getParameter("tname");
 				<%@ include file = "../include/space_leftmenu.jsp" %>
 			</div>
 			<div class="right_contents">
+				<input type="hidden" name="tname" value="<%= tname %>" />
 				<div class="top_title">
 					
 					<%
@@ -46,22 +46,41 @@ String tname = request.getParameter("tname");
 				</div>
 				<div>
 <!-- 게시판 들어가는 부분 S -->
-<form method="get">  
-    <table width="100%">
+<form method="get">
+<input type="hidden" name="tname" value="<%= tname %>" />
+    <table class="table" width="100%">
     <tr>
+	    <%
+		if (tname.equals("board")){
+		%>
         <td align="center">
-            <select name="searchField"> 
-                <option style="font-size: 13px;" value="title">제목</option> 
-                <option style="font-size: 13px;" value="content">내용</option>
+            <select style="width: 70px; height: 30px; border-radius: 5px;" name="searchField"> 
+                <option style="font-size: 14px; width: 70px" value="title">제목</option> 
+                <option style="font-size: 14px;" value="content">내용</option>
             </select>
-            <input class="border" type="text" name="searchWord" />
-            <input type="submit" value="검색하기" />
+            <input class="border" style="height: 30px; font-size: 14px; padding: 10px; outline-color: #D8D8D8; border-radius: 5%;" type="text" name="searchWord" />
+            <input class="btn btn-sm" style="font-size: 14px; background-color: #EBEBEB" type="submit" value="검색하기" />
         </td>
+        <%
+		}
+		else if (tname.equals("freeboard")){
+        %>
+        <td align="center">
+            <select style="width: 70px; height: 30px; border-radius: 5px;" name="searchField"> 
+                <option style="font-size: 14px; width: 70px" value="title">제목</option> 
+                <option style="font-size: 14px;" value="content">내용</option>
+            </select>
+            <input class="border" style="height: 30px; font-size: 14px; padding: 10px; outline-color: #D8D8D8; border-radius: 5%;" type="text" name="searchWord" />
+            <input class="btn btn-sm" style="font-size: 14px; background-color: #EBEBEB" type="submit" value="검색하기" />
+        </td>
+        <%
+		}
+		%>
     </tr>   
     </table>
 </form>
 <table class="table table-bordered" width="100%">
-        <tr class="text-center">
+        <tr class="text-center" style="font-size: 14px;">
             <th width="10%">번호</th>
             <th width="50%">제목</th>
             <th width="15%">작성자</th>
@@ -95,7 +114,7 @@ else {
     	virtualNum = totalCount - (((pageNum - 1) * pageSize) 
     			+ countNum++);
 %>
-<tr align="center">
+<tr align="center" style="font-size: 14px;">
     <td><%= virtualNum %></td>
     <td align="left"> 
         <a href="./sub01View.jsp?tname=<%= tname %>&num=<%= dto.getNum() %>&virtualNum=<%= virtualNum %>" style="text-decoration: none;">
@@ -112,23 +131,37 @@ else {
 
     </table>
     <table class="table" width="100%">
-        <tr align="right">
-        	<td align="center">
-        	<%= BoardPage.pagingImg(totalCount, pageSize,
-                       blockPage, pageNum, request.getRequestURI()) %>
-        	</td>
+        <tr align="right" style="font-size: 14px;">
         	<%
         	if (tname.equals("board")){
         		if (session.getAttribute("id") != null && session.getAttribute("id").toString().equals("manager")){
         	%>
-            <td><button type="button" class="btn btn-outline-primary" style="font-size: 13px; font-weight: bold;" onclick="location.href='./sub01Write.jsp?tname=<%= tname %>';">글쓰기
+        	<td align="center" style="padding-left: 50%;">
+        	<%= BoardPage.pagingImg(totalCount, pageSize,
+                       blockPage, pageNum, request.getRequestURI()) %>
+        	</td>
+            <td align="right"><button type="button" class="btn btn-sm" style="font-size: 14px; background-color: #EBEBEB;" onclick="location.href='./sub01Write.jsp?tname=<%= tname %>';">글쓰기
                 </button></td>
         	<%
         		}
+        		else{
+        	%>
+        		<td align="center" style="padding-left: 0%;">
+        		<%= BoardPage.pagingImg(totalCount, pageSize,
+                       blockPage, pageNum, request.getRequestURI()) %>
+        	</td>
+        	<%
+        		}
+        	%>
+        	<%
         	}
         	else{
         	%>
-        	<td><button type="button" class="btn btn-outline-primary" style="font-size: 13px; font-weight: bold;" onclick="location.href='./sub01Write.jsp?tname=<%= tname %>';">글쓰기
+        	<td align="center" style="padding-left: 50%;">
+        	<%= BoardPage.pagingImg(totalCount, pageSize,
+                       blockPage, pageNum, request.getRequestURI()) %>
+        	</td>
+        	<td align="right"><button type="button" class="btn btn-sm" style="font-size: 14px; background-color: #EBEBEB;" onclick="location.href='./sub01Write.jsp?tname=<%= tname %>';">글쓰기
                 </button></td>
         	<%
         	}
