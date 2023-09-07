@@ -7,6 +7,7 @@
     pageEncoding="UTF-8"%>
     
 <%
+//adgljhagld
 //로그인 폼에서 전송한 폼값을 받는다.
 String id = request.getParameter("id");
 String pass = request.getParameter("pass");
