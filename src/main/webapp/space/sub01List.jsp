@@ -117,8 +117,8 @@ else {
 <tr align="center" style="font-size: 14px;">
     <td><%= virtualNum %></td>
     <td align="left"> 
-        <a href="./sub01View.jsp?tname=<%= tname %>&num=<%= dto.getNum() %>&virtualNum=<%= virtualNum %>" style="text-decoration: none;">
-        	<%= dto.getTitle() %></a> 
+        <p style="width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><a href="./sub01View.jsp?tname=<%= tname %>&num=<%= dto.getNum() %>&virtualNum=<%= virtualNum %>" style="text-decoration: none;" >
+        	<%= dto.getTitle() %></a></p>
     </td>
     <td align="center"><%= dto.getId() %></td>
     <td align="center"><%= dto.getVisitcount() %></td>
@@ -136,9 +136,9 @@ else {
         	if (tname.equals("board")){
         		if (session.getAttribute("id") != null && session.getAttribute("id").toString().equals("manager")){
         	%>
-        	<td align="center" style="padding-left: 50%;">
+        	<td align="center" style="position: relative; left: 180px;">
         	<%= BoardPage.pagingImg(totalCount, pageSize,
-                       blockPage, pageNum, request.getRequestURI()) %>
+                       blockPage, pageNum, request.getRequestURI(), tname) %>
         	</td>
             <td align="right"><button type="button" class="btn btn-sm" style="font-size: 14px; background-color: #EBEBEB;" onclick="location.href='./sub01Write.jsp?tname=<%= tname %>';">글쓰기
                 </button></td>
@@ -148,7 +148,7 @@ else {
         	%>
         		<td align="center" style="padding-left: 0%;">
         		<%= BoardPage.pagingImg(totalCount, pageSize,
-                       blockPage, pageNum, request.getRequestURI()) %>
+                       blockPage, pageNum, request.getRequestURI(), tname) %>
         	</td>
         	<%
         		}
@@ -157,9 +157,9 @@ else {
         	}
         	else{
         	%>
-        	<td align="center" style="padding-left: 50%;">
+        	<td align="center" style="position: relative; left: 180px;">
         	<%= BoardPage.pagingImg(totalCount, pageSize,
-                       blockPage, pageNum, request.getRequestURI()) %>
+                       blockPage, pageNum, request.getRequestURI(), tname) %>
         	</td>
         	<td align="right"><button type="button" class="btn btn-sm" style="font-size: 14px; background-color: #EBEBEB;" onclick="location.href='./sub01Write.jsp?tname=<%= tname %>';">글쓰기
                 </button></td>

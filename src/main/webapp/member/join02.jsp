@@ -160,6 +160,23 @@
 		}
 	}
 	
+	//아이디 중복확인
+	function idCheck(fn){
+		if(fn.id.value==''){
+		alert("아이디를 입력후 중복확인 해주세요.");
+		fn.id.focus();
+		}
+		else{
+		//아이디 중복확인 창을 띄울때 입력한 아이디를 쿼리스트링으로
+		//넘겨준다.
+		window.open('joinOverlap.jsp?id='+fn.id.value,
+		'idOver',
+		'width=500,height=300');
+		//입력한 아이디를 수정할 수 없도록 속성을 추가한다.
+		fn.id.readOnly = true;
+		}
+	}
+
 </script>
 
 <!-- 주소란 CDN -->
@@ -207,7 +224,7 @@
 					</colgroup>
 					<tr>
 						<th><img src="../images/join_tit002.gif" /></th>
-						<td><input type="text" name="id"  value="" class="join_input" />&nbsp;<a onclick="id_check_person(this.form);" style="cursor:hand;"><img src="../images/btn_idcheck.gif" alt="중복확인"/></a>&nbsp;&nbsp;<span>* 4자 이상 12자 이내의 영문/숫자 조합하여 공백 없이 기입</span></td>
+						<td><input type="text" name="id"  value="" class="join_input" />&nbsp;<a onclick="idCheck(myform);" style="cursor:hand;" ><img src="../images/btn_idcheck.gif" alt="중복확인" ></a>&nbsp;&nbsp;<span>* 4자 이상 12자 이내의 영문/숫자 조합하여 공백 없이 기입</span></td>
 					</tr>
 					<tr>
 						<th><img src="../images/join_tit003.gif" /></th>
@@ -269,7 +286,7 @@
 					</tr>
 				</table>
 				
-				<p style="text-align:center; margin-bottom:20px"><input type="image" src="../images/btn01.gif" />&nbsp;&nbsp;<a href="#"><img src="../images/btn02.gif" /></a></p>
+				<p style="text-align:center; margin-bottom:20px"><input type="image" src="../images/btn01.gif" />&nbsp;&nbsp;<a href="./join01.jsp"><img src="../images/btn02.gif" /></a></p>
 				</form>
 				
 			</div>

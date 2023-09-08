@@ -19,7 +19,7 @@ public class BoardDAO extends JDBConnect {
 	public int selectCount(Map<String, Object> map) {
 		
 		int totalCount = 0;
-		
+
 		//String query = "SELECT COUNT(*) FROM board";
 		
 		String query = "SELECT COUNT(*) FROM " + map.get("tname");

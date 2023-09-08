@@ -4,6 +4,7 @@
  
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -112,7 +113,7 @@ if (!saveId.equals("")){
 				<ul class="main_board_list">
 					<c:forEach items="${ notice }" var="row">
 						<li>
-							<p>
+							<p style="width: 230px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
 								<a href="../space/sub01View.jsp?tname=board&num=${ row.num }">${ row.title }</a>
 								<span>${ row.postdate }</span>
 							</p>
@@ -125,9 +126,9 @@ if (!saveId.equals("")){
 				<ul class="main_board_list">
 				<c:forEach items="${ free }" var="dto">
 					<li>
-						<p>
-						<a href="../space/sub01View.jsp?tname=freeboard&num=${ dto.num }">${ dto.title }</a>
-						<span>${ dto.postdate }</span>
+						<p style="width: 230px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+							<a href="../space/sub01View.jsp?tname=freeboard&num=${ dto.num }">${ dto.title }</a>
+							<span>${ dto.postdate }</span>
 						</p>
 					</li>
 				</c:forEach>

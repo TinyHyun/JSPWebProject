@@ -26,7 +26,7 @@ if (searchWord != null){
 }
 
 int totalCount = dao.selectCount(param);
-List<BoardDTO> boardLists = dao.selectList(param);
+
 
 /* #paging관련 코드 추가 start# */
 int pageSize = 
@@ -46,6 +46,8 @@ int end = pageNum * pageSize;
 param.put("start", start);
 param.put("end", end);
 /* #paging관련 코드 추가 end# */
+
+List<BoardDTO> boardLists = dao.selectListPage(param);
 
 dao.close();
 %>
