@@ -13,7 +13,7 @@ String tname = request.getParameter("tname");
     
 <%@ include file="../include/global_head.jsp" %>
 
- <body>
+<body>
 	<center>
 	<div id="wrap">
 		<%@ include file="../include/top.jsp" %>
@@ -41,18 +41,27 @@ String tname = request.getParameter("tname");
 					<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;자유게시판<p>
 					<%
 					}
+					else if (tname.equals("photoboard")){
 					%>
-					
+					<img src="../images/space/sub04_title.gif" alt="사진게시판" class="con_title" />
+					<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;사진게시판<p>
+					<%
+					}
+					else if (tname.equals("infoboard")){
+					%>
+					<img src="../images/space/sub05_title.gif" alt="정보자료실" class="con_title" />
+					<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;정보자료실<p>
+					<%
+					}
+					%>
 				</div>
 				<div>
+				
 <!-- 게시판 들어가는 부분 S -->
 <form method="get">
 <input type="hidden" name="tname" value="<%= tname %>" />
     <table class="table" width="100%">
     <tr>
-	    <%
-		if (tname.equals("board")){
-		%>
         <td align="center">
             <select style="width: 70px; height: 30px; border-radius: 5px;" name="searchField"> 
                 <option style="font-size: 14px; width: 70px" value="title">제목</option> 
@@ -61,21 +70,6 @@ String tname = request.getParameter("tname");
             <input class="border" style="height: 30px; font-size: 14px; padding: 10px; outline-color: #D8D8D8; border-radius: 5%;" type="text" name="searchWord" />
             <input class="btn btn-sm" style="font-size: 14px; background-color: #EBEBEB" type="submit" value="검색하기" />
         </td>
-        <%
-		}
-		else if (tname.equals("freeboard")){
-        %>
-        <td align="center">
-            <select style="width: 70px; height: 30px; border-radius: 5px;" name="searchField"> 
-                <option style="font-size: 14px; width: 70px" value="title">제목</option> 
-                <option style="font-size: 14px;" value="content">내용</option>
-            </select>
-            <input class="border" style="height: 30px; font-size: 14px; padding: 10px; outline-color: #D8D8D8; border-radius: 5%;" type="text" name="searchWord" />
-            <input class="btn btn-sm" style="font-size: 14px; background-color: #EBEBEB" type="submit" value="검색하기" />
-        </td>
-        <%
-		}
-		%>
     </tr>   
     </table>
 </form>
@@ -128,8 +122,8 @@ else {
     }
 }
 %>
+</table>
 
-    </table>
     <table class="table" width="100%">
         <tr align="right" style="font-size: 14px;">
         	<%
@@ -152,7 +146,15 @@ else {
         	</td>
         	<%
         		}
+        	}
+        	else if (tname.equals("photoboard")){
         	%>
+        	<td align="center" style="position: relative; left: 180px;">
+        	<%= BoardPage.pagingImg(totalCount, pageSize,
+                       blockPage, pageNum, request.getRequestURI(), tname) %>
+        	</td>
+        	<td align="right"><button type="button" class="btn btn-sm" style="font-size: 14px; background-color: #EBEBEB;" onclick="location.href='../space/photoWrite.tj?tname=photoboard';">글쓰기
+                </button></td>
         	<%
         	}
         	else{
@@ -169,13 +171,12 @@ else {
         </tr>
     </table>
 <!-- 게시판 들어가는 부분 E -->
+
 				</div>
 			</div>
 		</div>
 		<%@ include file="../include/quick.jsp" %>
 	</div>
-
-
 	<%@ include file="../include/footer.jsp" %>
 	</center>
  </body>

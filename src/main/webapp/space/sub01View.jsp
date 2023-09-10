@@ -4,18 +4,29 @@
     pageEncoding="UTF-8"%>
     
 <%
+//테이블명을 가져온다.
 String tname = request.getParameter("tname");
 
 /* 목록에서 제목을 클릭하면 게시물의 일련번호를 ?num=99와 
 같이 받아온다. 게시물 인출을 위해 파라미터를 받아온다. */
 String num = request.getParameter("num");
-String virtualNum = request.getParameter("virtualNum");
+
 //DAO객체 생성을 통해 오라클에 연결한다. 
 BoardDAO dao = new BoardDAO(application);
+
+//가상번호를 가져온다.
+//메인에서 눌러서 들어온 게시물의 번호도 가상번호로 만들것이야
+String getVirtualNum = request.getParameter("virtualNum");
+String virtualNum = dao.getVirtualNum(num, tname);
+//System.out.println("virtualNum: " + virtualNum);
+
 //게시물의 조회수 증가
 dao.updateVisitCount(num, tname);
+
+
 //게시물의 내용을 인출하여 DTO에 저장한다. 
 BoardDTO dto = dao.selectView(num, tname);
+
 dao.close();
 %>
 
@@ -52,13 +63,32 @@ function deletePost() {
 			</div>
 			<div class="right_contents">
 				<div class="top_title">
-<% if(tname.equals("board")) { %>				
-	<img src="../images/space/sub01_title.gif" alt="공지사항" class="con_title" />
-	<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;공지사항<p>
-<% } else if(tname.equals("freeboard")) { %>
-	<img src="../images/space/sub03_title.gif" alt="자유게시판" class="con_title" />
-	<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;자유게시판<p>
-<% } %>
+				<% 
+				if (tname.equals("board")){ 
+				%>				
+				<img src="../images/space/sub01_title.gif" alt="공지사항" class="con_title" />
+				<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;공지사항<p>
+				<%
+				} 
+				else if (tname.equals("freeboard")){ 
+				%>
+				<img src="../images/space/sub03_title.gif" alt="자유게시판" class="con_title" />
+				<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;자유게시판<p>
+				<% 
+				}
+				else if (tname.equals("photoboard")){
+				%>
+				<img src="../images/space/sub04_title.gif" alt="사진게시판" class="con_title" />
+				<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;사진게시판<p>
+				<%
+				}
+				else if (tname.equals("infoboard")){
+				%>
+				<img src="../images/space/sub05_title.gif" alt="정보자료실" class="con_title" />
+				<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;정보자료실<p>
+				<%
+				}
+				%>
 				</div>
 				<div>
 <!-- 게시판 들어가는 부분 S -->
@@ -81,7 +111,7 @@ function deletePost() {
             <td><%= dto.getVisitcount() %></td>
         </tr>
         <tr>
-            <th style="text-align: center; vertical-align:middle;">제목</th>
+            <th style="width: 100px; text-align: center; vertical-align:middle;">제목</th>
             <td colspan="3"><%= dto.getTitle() %></td>
         </tr>
         <tr>

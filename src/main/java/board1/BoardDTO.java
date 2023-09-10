@@ -9,6 +9,9 @@ public class BoardDTO {
 	private java.sql.Date postdate;
 	private String visitcount;
 	private String name;
+	private String ofile;
+	private String sfile;
+	private String downcount;
 	
 	
 	public String getNum() {
@@ -52,6 +55,24 @@ public class BoardDTO {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getOfile() {
+		return ofile;
+	}
+	public void setOfile(String ofile) {
+		this.ofile = ofile;
+	}
+	public String getSfile() {
+		return sfile;
+	}
+	public void setSfile(String sfile) {
+		this.sfile = sfile;
+	}
+	public String getDowncount() {
+		return downcount;
+	}
+	public void setDowncount(String downcount) {
+		this.downcount = downcount;
 	}
 	
 }
