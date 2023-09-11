@@ -2,7 +2,19 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../include/global_head.jsp" %>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7188b41e54f57b2d2b33592c425980be"></script>
+<script>
+/* $(function () { */
+		var container = document.getElementById('map');
+		var options = {
+			center: new kakao.maps.LatLng(33.450701, 126.570667),
+			level: 3
+		};
 
+		var map = new kakao.maps.Map(container, options);
+/* }); */
+</script>
  <body>
 	<center>
 	<div id="wrap">
@@ -22,7 +34,7 @@
 				</div>
 				<div class="con_box">
 					<p class="con_tit"><img src="../images/center/sub07_tit01.gif" alt="오시는길" /></p>
-					<img src="../images/center/sub07_img01.gif" class="con_img"/>
+					<div id="map" style="width:500px;height:400px;"></div>
 					<p class="con_tit"><img src="../images/center/sub07_tit02.gif" alt="자가용 오시는길" /></p>
 					<div class="in_box">
 						<p class="dot_tit">강북 방향</p>
