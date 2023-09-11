@@ -118,7 +118,7 @@ public class BoardDAO extends JDBConnect {
 	}
 	
 	//사진 게시판 insert
-	public int insertWritePh(BoardDTO dto, String tname) {
+	public int insertWritePh(BoardDTO dto) {
 		 
 	    int result = 0;  
 	    
@@ -131,7 +131,7 @@ public class BoardDAO extends JDBConnect {
 		                 + " VALUES ( "
 		                 + " seq_board_num.NEXTVAL, ?, ?, ?, 0)";  */
 		    
-			String query = "INSERT INTO " + tname + " ( "
+			String query = "INSERT INTO photoboard ( "
 		                 + " num, title, content, id, visitcount, ofile, sfile, downcount) "
 		                 + " VALUES ( "
 		                 + " seq_board_num.NEXTVAL, ?, ?, ?, 0, ?, ?, 0)"; 
@@ -202,14 +202,14 @@ public class BoardDAO extends JDBConnect {
 	}
 	
 	//사진게시판 상세보기
-	public BoardDTO selectViewPh(String num, String tname) { 
+	public BoardDTO selectView(String num) { 
 	    //하나의 레코드를 저장하기 위한 DTO객체 생성
 		BoardDTO dto = new BoardDTO();
 		
 		/* 내부조인(inner join)을 통해 member테이블의 name컬럼까지
 		select 한다. */
 	    String query = "SELECT B.*, M.name " 
-	                 + " FROM member M INNER JOIN " + tname + " B " 
+	                 + " FROM member M INNER JOIN photoboard B " 
 	                 + " ON M.id=B.id "
 	                 + " WHERE num=?";
 	    try {
@@ -293,10 +293,29 @@ public class BoardDAO extends JDBConnect {
 	    }
 	}
 	
+	//사진게시물의 조회수를 1 증가 시킨다.
+		public void updatePhVisitCount(String num) {
+			/* 게시물의 일련번호를 통해 visitcount를 1 증가시킨다. 
+			해당 컬럼은 number 타입이므로 사칙연산이 가능하다. */
+		    String query = "UPDATE photoboard " 
+		    			+ " SET visitcount=visitcount+1 "
+		                 + " WHERE num=?";
+		    
+		    try {
+		        psmt = con.prepareStatement(query);
+		        psmt.setString(1, num);   
+		        psmt.executeQuery();   
+		    } 
+		    catch (Exception e) {
+		        System.out.println("사진 게시물 조회수 증가 중 예외 발생");
+		        e.printStackTrace();
+		    }
+		}
+	
 	//다운로드 횟수를 1 증가시킨다.
-    public void downCountPlus(String num, String tname) {
+    public void downCountPlus(String num) {
     	
-    	String sql = "UPDATE " + tname + " SET "
+    	String sql = "UPDATE photoboard SET "
 				+ " downcount=downcount+1 "
 				+ " WHERE num=?";
 	
@@ -336,11 +355,11 @@ public class BoardDAO extends JDBConnect {
     }
     
     //사진 게시판 수정하기
-    public int updateEditPh(BoardDTO dto, String tname) { 
+    public int updateEdit(BoardDTO dto) { 
         int result = 0;        
         try {
         	//특정 일련번호에 해당하는 게시물을 수정한다. 
-            String query = "UPDATE " + tname + " SET "
+            String query = "UPDATE photoboard SET "
                          + " title=?, content=?, ofile=?, sfile=? "
                          + " WHERE num=?";
             //쿼리문의 인파라미터 설정 
@@ -371,6 +390,25 @@ public class BoardDAO extends JDBConnect {
         try {
         	//인파라미터가 있는 delete쿼리문 작성
             String query = "DELETE FROM " + tname + " WHERE num=?";
+            psmt = con.prepareStatement(query); 
+            psmt.setString(1, dto.getNum()); 
+            result = psmt.executeUpdate(); 
+        } 
+        catch (Exception e) {
+            System.out.println("게시물 삭제 중 예외 발생");
+            e.printStackTrace();
+        }
+        
+        return result;  
+    }
+    
+    //사진 게시물 삭제하기 
+    public int deletePost(BoardDTO dto) { 
+        int result = 0;
+
+        try {
+        	//인파라미터가 있는 delete쿼리문 작성
+            String query = "DELETE FROM photoboard WHERE num=?";
             psmt = con.prepareStatement(query); 
             psmt.setString(1, dto.getNum()); 
             result = psmt.executeUpdate(); 

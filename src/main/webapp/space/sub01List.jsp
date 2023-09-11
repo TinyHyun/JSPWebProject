@@ -47,12 +47,6 @@ String tname = request.getParameter("tname");
 					<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;사진게시판<p>
 					<%
 					}
-					else if (tname.equals("infoboard")){
-					%>
-					<img src="../images/space/sub05_title.gif" alt="정보자료실" class="con_title" />
-					<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;정보자료실<p>
-					<%
-					}
 					%>
 				</div>
 				<div>
@@ -92,7 +86,7 @@ if (boardLists.isEmpty()) {
         </tr>
 <%
 }
-else {
+else if (!tname.equals("photoboard")) {
 	/* 출력할 게시물이 있는 경우에는 확장 for문으로 List컬렉션에 저장된
 	레코드의 갯수만큼 반복하여 출력한다. */
     int virtualNum = 0;  
@@ -112,6 +106,33 @@ else {
     <td><%= virtualNum %></td>
     <td align="left"> 
         <p style="width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><a href="./sub01View.jsp?tname=<%= tname %>&num=<%= dto.getNum() %>&virtualNum=<%= virtualNum %>" style="text-decoration: none;" >
+        	<%= dto.getTitle() %></a></p>
+    </td>
+    <td align="center"><%= dto.getId() %></td>
+    <td align="center"><%= dto.getVisitcount() %></td>
+    <td align="center"><%= dto.getPostdate() %></td>  
+</tr>
+<%
+    }
+}
+else {
+	int virtualNum = 0;  
+  
+	
+    int countNum = 0;  
+    for (BoardDTO dto : boardLists)
+    {
+    	/* 현재 출력할 게시물의 갯수에 따라 번호가 달라지게 되므로 
+    	totalCount를 사용하여 가상번호를 부여한다. */
+        //virtualNum = totalCount--; 
+    	
+    	virtualNum = totalCount - (((pageNum - 1) * pageSize) 
+    			+ countNum++);
+%>
+<tr align="center" style="font-size: 14px;">
+    <td><%= virtualNum %></td>
+    <td align="left"> 
+        <p style="width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><a href="../controller/photoView.tj?photobard&num=<%= dto.getNum() %>&virtualNum=<%= virtualNum %>" style="text-decoration: none;" >
         	<%= dto.getTitle() %></a></p>
     </td>
     <td align="center"><%= dto.getId() %></td>
@@ -153,7 +174,7 @@ else {
         	<%= BoardPage.pagingImg(totalCount, pageSize,
                        blockPage, pageNum, request.getRequestURI(), tname) %>
         	</td>
-        	<td align="right"><button type="button" class="btn btn-sm" style="font-size: 14px; background-color: #EBEBEB;" onclick="location.href='../space/photoWrite.tj?tname=photoboard';">글쓰기
+        	<td align="right"><button type="button" class="btn btn-sm" style="font-size: 14px; background-color: #EBEBEB;" onclick="location.href='../controller/photoWrite.tj?tname=photoboard';">글쓰기
                 </button></td>
         	<%
         	}
