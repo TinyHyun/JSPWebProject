@@ -39,13 +39,26 @@ function validateForm(form) {
 			</div>
 			<div class="right_contents">
 				<div class="top_title">
-				<% if(tname.equals("board")) { %>				
-	<img src="../images/space/sub01_title.gif" alt="공지사항" class="con_title" />
-	<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;공지사항<p>
-<% } else if(tname.equals("freeboard")) { %>
-	<img src="../images/space/sub03_title.gif" alt="자유게시판" class="con_title" />
-	<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;자유게시판<p>
-<% } %>
+				<% 
+				if(tname.equals("board")) { 
+				%>				
+				<img src="../images/space/sub01_title.gif" alt="공지사항" class="con_title" />
+				<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;공지사항<p>
+				<% 
+				} 
+				else if(tname.equals("freeboard")) { 
+				%>
+				<img src="../images/space/sub03_title.gif" alt="자유게시판" class="con_title" />
+				<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;자유게시판<p>
+				<% 
+				}
+				else if (tname.equals("infoboard")){
+				%>
+				<img src="../images/space/sub05_title.gif" alt="정보자료실" class="con_title" />
+				<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;정보자료실<p>
+				<%
+				}
+				%>
 				</div>
 				<div>
 <!-- 게시판 들어가는 부분 S -->
