@@ -48,6 +48,7 @@ param.put("end", end);
 /* #paging관련 코드 추가 end# */
 
 List<BoardDTO> boardLists = dao.selectListPage(param);
+List<BoardDTO> photoLists = dao.selectPhPage(param);
 
 dao.close();
 %>

@@ -80,7 +80,7 @@ function deletePost() {
                 <%= dto.getContent().replace("\r\n", "<br/>") %>
                 <c:if test="${ not empty dto.ofile and isImage eq true }">
                 	<br />
-                	<img src="../Uploads/${ dto.sfile }" style="max-width: 100%" />
+                	<img src="../Uploads/${ dto.sfile }" style="max-width: 100%; width: 250px; height: 100%;" />
                 </c:if>
             </td> 
         </tr>

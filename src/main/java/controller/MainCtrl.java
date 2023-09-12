@@ -27,7 +27,7 @@ public class MainCtrl extends HttpServlet {
 		//DAO로 전달할 파라미터 저장을 위한 Map 컬렉션
 		Map<String, Object> param = new HashMap<>();
 		param.put("start", 1);
-		param.put("end", 4);
+		param.put("end", 6);
 		
 		//공지사항 최근 게시물 4개 인출(board)
 		param.put("tname", "board");
@@ -38,9 +38,13 @@ public class MainCtrl extends HttpServlet {
 		param.put("tname", "freeboard");
 		List<BoardDTO> free = dao.selectListPage(param);
 		
+		param.put("tname", "photoboard");
+		List<BoardDTO> photo = dao.selectPhPage(param);
+		
 		//request 영역에 저장
 		req.setAttribute("notice", notice);
 		req.setAttribute("free", free);
+		req.setAttribute("photo", photo);
 		
 		//View로 포워드
 		req.getRequestDispatcher("../main/main.jsp").forward(req, resp);

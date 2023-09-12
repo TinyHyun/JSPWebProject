@@ -74,6 +74,9 @@ String tname = request.getParameter("tname");
     </table>
 </form>
 <table class="table table-bordered" width="100%">
+		<%
+		if (!tname.equals("photoboard")){
+		%>
         <tr class="text-center" style="font-size: 14px;">
             <th width="10%">번호</th>
             <th width="50%">제목</th>
@@ -81,6 +84,9 @@ String tname = request.getParameter("tname");
             <th width="10%">조회수</th>
             <th width="15%">작성일</th>
         </tr>
+        <%
+        }
+        %>
 <%
 //컬렉션에 입력된 데이터가 없는지 확인한다. 
 if (boardLists.isEmpty()) {
@@ -126,27 +132,65 @@ else {
   
 	
     int countNum = 0;  
-    for (BoardDTO dto : boardLists)
-    {
     	/* 현재 출력할 게시물의 갯수에 따라 번호가 달라지게 되므로 
     	totalCount를 사용하여 가상번호를 부여한다. */
         //virtualNum = totalCount--; 
-    	
-    	virtualNum = totalCount - (((pageNum - 1) * pageSize) 
-    			+ countNum++);
 %>
-<tr align="center" style="font-size: 14px;">
-    <td><%= virtualNum %></td>
-    <td align="left"> 
-        <p style="width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><a href="../controller/photoView.tj?photobard&num=<%= dto.getNum() %>&virtualNum=<%= virtualNum %>" style="text-decoration: none;" >
-        	<%= dto.getTitle() %></a></p>
-    </td>
-    <td align="center"><%= dto.getId() %></td>
-    <td align="center"><%= dto.getVisitcount() %></td>
-    <td align="center"><%= dto.getPostdate() %></td>  
-</tr>
+<!-- 사진게시판 리스트 S -->
+<!-- 1행 -->
 <%
-    }
+int total = photoLists.size();
+
+
+int rows = total%5==0 ? total/5 : (total/5)+1;
+
+for (int i=0 ; i<rows ; i++) {
+%>
+<div class="row">
+	<%
+	if (i != rows-1) {
+		for (int u=i*5 ; u<(i+1)*5 ; u++) {
+			virtualNum = totalCount - (((pageNum - 1) * pageSize) 
+	    			+ countNum++);
+	%>
+	<div class="card imgCard col border-0 mx-auto">
+		<img style="width: 100%; height: 200px;" class="card-img-top" src="../Uploads/<%= photoLists.get(u).getSfile() %>" alt="" />
+		<div class="card-body text-center">
+			<p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+				<a href="../controller/photoView.tj?photobard&num=<%= photoLists.get(u).getNum() %>&virtualNum=<%= virtualNum %>" style="text-decoration: none; font-size: 16px; font-weight: bold;" >
+				<%= photoLists.get(u).getTitle() %></a>
+			</p>
+			<p><%= photoLists.get(u).getPostdate() %></p>
+		</div>
+	</div>
+	<%
+		}
+	}
+	else{
+		for (int u=i*5 ; u<total ; u++){
+			virtualNum = totalCount - (((pageNum - 1) * pageSize) 
+	    			+ countNum++);
+	%>
+	<div class="card imgCard col border-0 mx-auto">
+		<img style="width: 100%; height: 200px;" class="card-img-top" src="../Uploads/<%= photoLists.get(u).getSfile() %>" alt="" />
+		<div class="card-body text-left">
+			<p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+				<a href="../controller/photoView.tj?photobard&num=<%= photoLists.get(u).getNum() %>&virtualNum=<%= virtualNum %>" style="text-decoration: none; font-size: 16px; font-weight: bold;" >
+				<%= photoLists.get(u).getTitle() %></a>
+			</p>
+			<p><%= photoLists.get(u).getPostdate() %></p>
+		</div>
+	</div>
+	<%
+		}
+	}
+	%>
+</div>
+<%
+}
+%>
+<!-- 사진게시판 리스트 E -->
+<%
 }
 %>
 </table>

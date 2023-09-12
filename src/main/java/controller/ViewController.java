@@ -27,8 +27,8 @@ public class ViewController extends HttpServlet {
 		
 		//파라미터로 전달된 일련번호 받기
 		String num = req.getParameter("num");
-		String virtualNum = req.getParameter("virtualNum");
-		//String virtualNum = dao.getVirtualNum(num, "photoboard");
+		//String virtualNum = req.getParameter("virtualNum");
+		String virtualNum = dao.getVirtualNum(num, "photoboard");
 		
 		//조회수 1 증가
 		dao.updatePhVisitCount(num);

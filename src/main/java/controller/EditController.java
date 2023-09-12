@@ -16,8 +16,8 @@ import utils.JSFunction;
 
 @WebServlet("/controller/photoEdit.tj")
 @MultipartConfig(
-		maxFileSize = 1024 * 1024 * 1,
-		maxRequestSize = 1024 * 1024 * 10
+		maxFileSize = 1024 * 1024 * 10,
+		maxRequestSize = 1024 * 1024 * 100
 	)
 public class EditController extends HttpServlet {
 
