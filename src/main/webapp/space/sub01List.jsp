@@ -167,9 +167,12 @@ for (int i=0 ; i<rows ; i++) {
 		}
 	}
 	else{
-		for (int u=i*5 ; u<total ; u++){
+		for (int u=i*5 ; u<(i+1)*5 ; u++){
 			virtualNum = totalCount - (((pageNum - 1) * pageSize) 
 	    			+ countNum++);
+			if (u < total) {
+				
+			
 	%>
 	<div class="card imgCard col border-0 mx-auto">
 		<img style="width: 100%; height: 200px;" class="card-img-top" src="../Uploads/<%= photoLists.get(u).getSfile() %>" alt="" />
@@ -182,6 +185,19 @@ for (int i=0 ; i<rows ; i++) {
 		</div>
 	</div>
 	<%
+			} else {
+	%>
+	<div class="card imgCard col border-0 mx-auto">
+		<p style="width: 100%; height: 200px;" class="card-img-top"></p>
+		<div class="card-body text-left">
+			<p>
+				<p></p>
+			</p>
+			<p></p>
+		</div>
+	</div>
+	<%			
+			}
 		}
 	}
 	%>
